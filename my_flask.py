@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, request, redirect, render_template, url_for
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField
@@ -12,5 +12,8 @@ def page0():
     return render_template('index.html')
 
 @app.route('/login')
-def page1():
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
     return render_template('login.html')
