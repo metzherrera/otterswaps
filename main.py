@@ -1,12 +1,16 @@
-from flask_bootstrap import Bootstrap4
-from flask import Flask
+from flask_bootstrap import Bootstrap5
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
-bootstrap = Bootstrap4(app)
+bootstrap = Bootstrap5(app)
 
-app.route('/page1.html')
-def wc():
-   s1 = 'Welcome to my page! '
-   s2 = 'Have a nice day!'
-   return s1 + s2
+@app.route('/mytemplate')
+def t_test():
+   return render_template('page1.html')
+
+
+
+@app.route('/userlogin')
+def t_test():
+   return render_template('page2.html')
