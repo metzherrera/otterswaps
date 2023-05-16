@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Item Listings</title>
+    {{ bootstrap.load_css() }}
+</head>
+<body>
+    <div class="container">
+        <h1>Item Listings</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for listing in listings %}
+                <tr>
+                    <td>{{ listing.title }}</td>
+                    <td>{{ listing.price }}</td>
+                    <td>{{ listing.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {{ bootstrap.load_js() }}
+</body>
+</html>
