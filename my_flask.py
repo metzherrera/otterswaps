@@ -9,8 +9,12 @@ bootstrap = Bootstrap5(app)
 
 @app.route('/')
 def page0():
-    return render_template('index.html')
+    return render_template('page1.html')
 
 @app.route('/login')
 def page1():
     return render_template('login.html')
+
+@app.route('/signup')
+def page2():
+    return render_template('signup.html')
