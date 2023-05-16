@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OtterSwaps | Home</title>
+    <title>OtterSwaps | An online market for CSUMB students.</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-pzjw8f+ua6d5qzsa5sekeefyv/cr0wc5so7n3zpz5fs8tc/nlhd+wpal2u7v8sdd" crossorigin="anonymous">
 </head>
 <body>
-
-
-    #prompt user to log in using a button
-    <div align="center"><button type="button" class="btn btn-info">click here to login</button></div>
-    <img src= '/static/images/otterhome.jpg'>
-
-
-
-
+    <div class="container">
+        <h1>Items for Sale</h1>
+        <ul class="list-group">
+            {% for listing in listings %}
+                <li class="list-group-item">
+                    <h3>{{ listing.title }}</h3>
+                    <p>{{ listing.description }}</p>
+                    <p>Price: {{ listing.price }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+        <a class="btn btn-primary" href="/add_listing">Add Listing</a>
+    </div>
 </body>
 </html>
