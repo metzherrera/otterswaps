@@ -9,7 +9,7 @@ photos = UploadSet("photos", IMAGES)
 app.config["UPLOADED_PHOTOS_DEST"] = "static/images"
 app.config["SECRET_KEY"] = "mysecretkey"
 configure_uploads(app,photos)
-
+# functions for setting up database, opening, saving, closing properly - Metztli
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
