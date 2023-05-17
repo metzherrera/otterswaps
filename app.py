@@ -21,7 +21,7 @@ def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
-
+# method to upload images to databse
 @app.route("/upload", methods=['POST'])
 def upload():
     if "photo" in request.files:
@@ -82,7 +82,7 @@ def display_images():
     image_data = get_image_data()
     return render_template("listings.html", image_data=image_data)
 
-# Functions to serialize listing data in database - Metztli
+# Functions to serialize listing data in database and display posts on listings page - Metztli
 def save_image_description(filename, description):
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
