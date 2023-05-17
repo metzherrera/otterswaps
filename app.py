@@ -43,7 +43,8 @@ def home():
     return render_template("create.html")
 
 
-
+# login and signup pages, created and designed with a template from Bootstrap - Jennesae
+# functionality for saving text in fields to sql database - Metztli
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -75,11 +76,13 @@ def login():
     
     return render_template('login.html')
 
+# Page to display listings - Hannah
 @app.route("/listings")
 def display_images():
     image_data = get_image_data()
     return render_template("listings.html", image_data=image_data)
 
+# Functions to serialize listing data in database - Metztli
 def save_image_description(filename, description):
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
