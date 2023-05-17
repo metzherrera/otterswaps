@@ -10,27 +10,11 @@ app.config["UPLOADED_PHOTOS_DEST"] = "static/images"
 app.config["SECRET_KEY"] = "mysecretkey"
 configure_uploads(app,photos)
 
-@app.post("/upload") 
-def upload():
-    if "photo" in request.files:
-        filename = photos.save(request.files["photo"])
-        flash("Photo saved successfully.")
-        return redirect(url_for("display_image", filename=filename))
-
-@app.route("/display/<filename>")
-def display_image(filename):
-    return render_template("home.html", filename=filename)
-
-@app.get("/create")
-def index():
-    return render_template("upload.html")
-
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
-
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -38,10 +22,27 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
+@app.route("/upload", methods=['POST'])
+def upload():
+    if "photo" in request.files:
+        filename = photos.save(request.files["photo"])
+        description = request.form['description']
+        save_image_description(filename, description)
+        flash("Photo and description saved successfully.")
+    return redirect("/listings")
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route("/display/<filename>")
+def display_image(filename):
+    return render_template("home.html", filename=filename)
+
+@app.route("/create", methods=['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        description = request.form['description']
+        flash("Description saved successfully.")
+    return render_template("create.html")
+
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -56,7 +57,6 @@ def signup():
         return redirect('/login')
     return render_template('signup.html')
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -68,7 +68,6 @@ def login():
         user = cursor.fetchone()
 
         if user and user[2] == password:
-            # Set the user as authenticated in the session
             session['user'] = user[0]
             return redirect('/create')
         else:
@@ -76,6 +75,24 @@ def login():
     
     return render_template('login.html')
 
+@app.route("/listings")
+def display_images():
+    image_data = get_image_data()
+    return render_template("listings.html", image_data=image_data)
+
+def save_image_description(filename, description):
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO images (filename, description) VALUES (?, ?)', (filename, description))
+        conn.commit()
+
+def get_image_data():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT filename, description FROM images')
+        rows = cursor.fetchall()
+        image_data = [{'filename': row[0], 'description': row[1]} for row in rows]
+        return image_data
 
 if __name__ == '__main__':
     app.run(debug=True)
