@@ -8,6 +8,8 @@ Class: CST205
 
 Date: 05/17/2023
 
+Presentation:https://docs.google.com/presentation/d/1r19_xsc7HvdHbdpHahzpd3JlAMdKVhtRohdg23V28zA/edit?usp=sharing
+
 How to Run Program: Must have all files on computer and run on Flask app. Use:
 
 flask --app my_flask --debug run
