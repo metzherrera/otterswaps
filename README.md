@@ -17,4 +17,4 @@ Link to Github Repository: https://github.com/metzherrera/otterswaps
 
 Link to Trello Board: https://trello.com/b/WRQWmdsH/team-7556-workspace 
 
-Future Work: We hope to continue working on this website to ensure only students of CSUMB can login to this website and to have a functioning comment section on the posts. 
+Future Work: We hope to continue working on this website to ensure only students of CSUMB can login to this website and to have some form of communication between users. 
